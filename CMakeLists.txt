@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(ffaudio)
+
 include(./third_party/vendor_tools/vendor.cmake)
 # Options for building ffavc
 if (EMSCRIPTEN)
@@ -22,7 +23,6 @@ elseif (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" OR CMAKE_SYSTEM_PROCESSOR STREQU
 else ()
     set(ARCH x86)
 endif ()
-message("ARCH: ${ARCH}")
 if (APPLE)
     set(MACOS TRUE)
     set(PLATFORM mac)
@@ -57,7 +57,6 @@ endif ()
 
 add_library(ffaudio STATIC ${FFAUDIO_FILES})
 merge_libraries_into(ffaudio ${FFAUDIO_STATIC_LIBS})
-message("FFAUDIO_STATIC_LIBS: ${FFAUDIO_STATIC_LIBS}")
 
 target_include_directories(ffaudio PRIVATE ${FFAUDIO_INCLUDES})
 target_link_libraries(ffaudio PRIVATE ${FFAUDIO_STATIC_LIBS})
