@@ -1,7 +1,7 @@
 #!/bin/bash -e
 MACOSX_DEPLOYMENT_TARGET=10.13
 OUT_DIR=out/mac
-OPTIONS="--disable-all --disable-everything --enable-static --disable-shared --disable-debug --disable-autodetect --enable-avcodec --enable-avutil --enable-avformat --enable-swscale --enable-swresample --enable-avfilter"
+OPTIONS="--disable-all --disable-everything --enable-static --disable-shared --disable-debug --disable-autodetect --enable-avcodec --enable-avutil --enable-avformat --enable-swscale --enable-swresample"
 
 build_arch() {
   make distclean

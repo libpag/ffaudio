@@ -46,5 +46,9 @@ The script will generate ffmpeg libraries to `vendor/ffmpeg` directory.
 
 ## Build ffaudio
 
+```
+depsync
+```
+
 After ffmpeg libraries are built, you can open this project by CLion to build, or simply build it
 with the cmake command-line tool.
