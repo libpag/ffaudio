@@ -47,10 +47,13 @@ esac
 make_dir $OUT_DIR
 
 build_arch() {
+  make distclean
   ./configure --toolchain=msvc --enable-cross-compile $OPTIONS \
     --prefix=$OUT_DIR/$ARCH
   make -j12
+  echo "make build success"
   make install
+  echo "make install success"
   make clean
 }
 

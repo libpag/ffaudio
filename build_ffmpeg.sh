@@ -16,10 +16,14 @@ function win_build() {
   make_dir $OUT_DIR/win/$1
   cp -a $SOURCE_DIR/out/win/$1/lib/libavcodec.a $OUT_DIR/win/$1/libavcodec.lib
   cp -a $SOURCE_DIR/out/win/$1/lib/libavutil.a $OUT_DIR/win/$1/libavutil.lib
+  cp -a $SOURCE_DIR/out/win/$1/lib/libavformat.a $OUT_DIR/win/$1/libavformat.lib
+  cp -a $SOURCE_DIR/out/win/$1/lib/libswresample.a $OUT_DIR/win/$1/libswresample.lib
+  cp -a $SOURCE_DIR/out/win/$1/lib/libswscale.a $OUT_DIR/win/$1/libswscale.lib
 }
 
 
 if [[ $(uname) == 'Darwin' ]]; then
+  echo "build macOS"
   MAC_REQUIRED_TOOLS="cmake yasm"
   for TOOL in ${MAC_REQUIRED_TOOLS[@]}; do
     if [ ! $(which $TOOL) ]; then
@@ -46,10 +50,12 @@ if [[ $(uname) == 'Darwin' ]]; then
 
 elif [[ $(uname) == *MINGW64* ]]; then
   # build win64
+  echo "build windows x64"
   win_build x64
 
 elif [[ $(uname) == *MINGW32* ]]; then
   # build win32
+  echo "build windows x86"
   win_build x86
 
 fi
