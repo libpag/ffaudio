@@ -4,7 +4,6 @@ OUT_DIR=out/mac
 OPTIONS="--disable-all --disable-everything --enable-static --disable-shared --disable-debug --disable-autodetect --enable-avcodec --enable-avutil --enable-avformat --enable-swscale --enable-swresample"
 
 build_arch() {
-  make distclean
   ./configure --target-os=darwin --arch=$ARCH --cc="$CC" $OPTIONS $EXTRA_OPTIONS\
     --extra-cflags="-w -fvisibility=hidden $CFLAGS -arch $ARCH" --extra-ldflags="$CFLAGS -arch $ARCH" \
     --prefix=$OUT_DIR/$ARCH
@@ -12,7 +11,7 @@ build_arch() {
   echo "make build success"
   make install
   echo "make install success"
-  make clean
+  make distclean
 }
 
 rm -rf $OUT_DIR
