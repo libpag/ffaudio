@@ -38,6 +38,8 @@ set(FFAUDIO_INCLUDES include src/AudioMuxerImpl vendor/ffmpeg/include)
 # collects source files.
 set(FFAUDIO_FILES src/ffaudio.cpp src/AudioMuxerImpl/AudioMuxerImpl.cpp)
 
+add_compile_options(-fvisibility=hidden)
+
 file(GLOB FFMPEG_FILES vendor/ffmpeg/${PLATFORM}/${ARCH}/*${CMAKE_STATIC_LIBRARY_SUFFIX})
 list(APPEND FFAUDIO_STATIC_LIBS ${FFMPEG_FILES})
 
@@ -48,8 +50,12 @@ elseif (WIN32)
     list(APPEND FFAUDIO_VENDOR_LIBS ${Bcrypt_LIB})
 endif ()
 
-add_library(ffaudio STATIC ${FFAUDIO_FILES})
-merge_libraries_into(ffaudio ${FFAUDIO_STATIC_LIBS})
+if (FFAUDIO_BUILD_STATIC)
+    add_library(ffaudio STATIC ${FFAUDIO_FILES})
+    merge_libraries_into(ffaudio ${FFAUDIO_STATIC_LIBS})
+else ()
+    add_library(ffaudio SHARED ${FFAUDIO_FILES})
+endif ()
 
 target_include_directories(ffaudio PRIVATE ${FFAUDIO_INCLUDES})
 target_link_libraries(ffaudio PRIVATE ${FFAUDIO_STATIC_LIBS})

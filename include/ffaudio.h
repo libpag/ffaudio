@@ -20,9 +20,15 @@
 #include <string>
 #include <memory>
 
+#ifdef _WIN32
+#define FFAUDIO_EXPORT __declspec(dllexport)
+#else
+#define FFAUDIO_EXPORT __attribute__((visibility("default")))
+#endif
+
 class AudioMuxerImpl;
 
-class AudioMuxer {
+class FFAUDIO_EXPORT AudioMuxer {
 public:
     AudioMuxer();
     ~AudioMuxer();
